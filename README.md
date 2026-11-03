@@ -17,7 +17,7 @@
 
 ## 🌟 What is RemLang?
 
-**RemLang** is a next-generation multi-paradigm programming language utilizing the `.rem` file extension. Engineered from scratch to combine **systems-level execution speed** with an evocative, themed syntax inspired by **Rem** from *Re:Zero*, RemLang unifies both **Procedure-Oriented Programming (POP)** and **Object-Oriented Programming (OOP)**.
+**RemLang** is a next-generation multi-paradigm programming language utilizing the `.rem` file extension. Engineered from scratch to combine **systems-level execution speed** with an evocative, themed syntax inspired by **Rem** from *Re:Zero*, RemLang seamlessly unifies both **Procedure-Oriented Programming (POP)** and **Object-Oriented Programming (OOP)**.
 
 Dedicated to Rem's unwavering loyalty, gentle smile, and devotion:
 - **Zero Hidden Costs**: No unpredictable background pauses or hidden control flows.
@@ -28,18 +28,17 @@ Dedicated to Rem's unwavering loyalty, gentle smile, and devotion:
 
 ## 💤 RemLang v0.1 Syntax Specification
 
-### 1. Dasar (Basics)
-| Konsep | RemLang | Catatan |
+### 1. Basics
+| Concept | RemLang | Description |
 | :--- | :--- | :--- |
-| **Komentar** | `zzz komentar` | Mengabaikan teks hingga akhir baris |
-| **Entry Point** | `rem_wakes_up { ... }` | Blok utama eksekusi program |
-| **Akhir Program** | `goodnight` | Penutup program yang manis |
-| **Ekstensi File** | `.rem` | Ekstensi resmi RemLang |
-| **Print Output** | `sleep_talk ...` | Mencetak ke stdout |
-| **Input Pengguna** | `listen()` | Membaca satu baris string dari stdin |
+| **Comments** | `zzz comment` | Single-line comment ignored until end of line |
+| **Entry Point** | `rem_wakes_up { ... }` | Main program execution block |
+| **End of Program** | `goodnight` | Graceful closing delimiter for programs |
+| **File Extension** | `.rem` | Official source file extension |
+| **Print Output** | `sleep_talk ...` | Prints expressions directly to stdout |
+| **User Input** | `listen()` | Reads a line of text from stdin |
 
 ```rem
-zzz Hello World in RemLang 💤
 rem_wakes_up {
     sleep_talk "Good morning, Subaru-kun!"
 }
@@ -48,22 +47,22 @@ goodnight
 
 ---
 
-### 2. Variabel & Tipe Primitif
-| Konsep | RemLang | Contoh |
+### 2. Variables & Primitive Types
+| Concept | RemLang | Example |
 | :--- | :--- | :--- |
-| **Variabel (Mutable)** | `remember` | `remember age = 18` |
-| **Konstanta (Immutable)**| `promise` | `promise love = "Subaru"` |
-| **Hapus Variabel** | `devour` | `devour age` |
+| **Mutable Variable** | `remember` | `remember age = 18` |
+| **Constant (Immutable)** | `promise` | `promise love = "Subaru"` |
+| **Delete Variable** | `devour` | `devour age` |
 | **Integer** | `whole` | `42` |
 | **Float** | `drift` | `3.14` |
-| **String** | `words` | `'Rem'` atau `"Rem"` |
+| **String** | `words` | `'Rem'` or `"Rem"` |
 | **Boolean** | `truth` | `yes` / `no` |
 | **Null** | `forgotten` | `forgotten` |
 | **List** | `memories` | `[1, 2, 3]` |
 | **Map (Dictionary)** | `diary` | `{ "name": "Rem", "role": "Maid" }` |
 
 > [!NOTE]
-> RemLang mendukung **type inference otomatis**. Tipe eksplisit bersifat opsional:
+> RemLang supports **automatic type inference**. Explicit type annotations are optional:
 > ```rem
 > remember whole age = 18
 > remember drift pi = 3.14
@@ -74,19 +73,19 @@ goodnight
 
 ---
 
-### 3. Operator
-- **Aritmetika**: `+`, `-`, `*`, `/`, `%`
-- **Perbandingan**: `==`, `!=`, `<`, `>`, `<=`, `>=`
-- **Logika**: `and`, `or`, `not`
+### 3. Operators
+- **Arithmetic**: `+`, `-`, `*`, `/`, `%`
+- **Comparison**: `==`, `!=`, `<`, `>`, `<=`, `>=`
+- **Logical**: `and`, `or`, `not`
 - **Assignment**: `=`
 
 ---
 
-### 4. Percabangan (If / Else)
-| Konsep | RemLang |
+### 4. Control Flow (If / Else)
+| Concept | RemLang |
 | :--- | :--- |
-| `if` | `maybe <kondisi> { ... }` |
-| `else if` | `or_maybe <kondisi> { ... }` |
+| `if` | `maybe <condition> { ... }` |
+| `else if` | `or_maybe <condition> { ... }` |
 | `else` | `snooze { ... }` |
 
 ```rem
@@ -101,14 +100,14 @@ maybe hope >= 5 {
 
 ---
 
-### 5. Perulangan (Iteration)
-| Jenis Perulangan | RemLang | Penjelasan |
+### 5. Loops (Iteration)
+| Loop Type | RemLang | Description |
 | :--- | :--- | :--- |
-| **Repeat N kali** | `again 3 times { ... }` | Loop hitungan pasti |
-| **While Loop** | `again while hope < 5 { ... }` | Loop berbasis kondisi |
-| **For-Each Loop** | `again each m in memories { ... }`| Iterasi setiap elemen list |
-| **Break** | `wake_up` | Keluar dari perulangan |
-| **Continue** | `turn_over` | Lanjut ke iterasi berikutnya |
+| **Repeat N times** | `again 3 times { ... }` | Fixed count repetition |
+| **While Loop** | `again while hope < 5 { ... }` | Condition-based loop |
+| **For-Each Loop** | `again each m in memories { ... }` | Iterates through each list element |
+| **Break** | `wake_up` | Immediately exits loop |
+| **Continue** | `turn_over` | Skips to next iteration |
 
 ```rem
 remember hope = 0
@@ -123,12 +122,12 @@ again while hope < 5 {
 
 ---
 
-### 6. Fungsi (Prosedur)
-| Konsep | RemLang |
+### 6. Functions (Procedures)
+| Concept | RemLang |
 | :--- | :--- |
-| **Definisi Fungsi** | `dream nama_fungsi(param1, param2) { ... }` |
-| **Return Value** | `wake_with <nilai>` |
-| **Pemanggilan** | `nama_fungsi(arg1, arg2)` |
+| **Function Definition** | `dream func_name(param1, param2) { ... }` |
+| **Return Value** | `wake_with <value>` |
+| **Function Call** | `func_name(arg1, arg2)` |
 
 ```rem
 dream greet(who) {
@@ -138,12 +137,12 @@ dream greet(who) {
 
 ---
 
-### 7. Penanganan Kesalahan (Error Handling)
-| Konsep | RemLang | Deskripsi |
+### 7. Error Handling
+| Concept | RemLang | Description |
 | :--- | :--- | :--- |
-| `try` | `save_point { ... }` | Menandai save point sebelum kode berbahaya |
-| `catch` | `return_by_death { ... }` | Menangkap kesalahan dan mengembalikan timeline |
-| `throw` | `die "pesan"` | Melempar kesalahan fatal secara eksplisit |
+| `try` | `save_point { ... }` | Marks a checkpoint before risky operations |
+| `catch` | `return_by_death { ... }` | Catches exceptions and unwinds safely |
+| `throw` | `die "message"` | Explicitly throws a fatal error |
 
 ```rem
 save_point {
@@ -156,26 +155,24 @@ save_point {
 ---
 
 ### 8. Built-in Utilities
-| Fungsi | Sintaks | Keterangan |
+| Utility | Syntax | Description |
 | :--- | :--- | :--- |
-| **Import File** | `borrow "file.rem"` | Meminjam modul/ingatan dari file lain |
-| **Panjang List/Map** | `count(memories)` | Menghitung jumlah elemen |
-| **Tambah ke List** | `add(memories, item)` | Menambahkan elemen baru ke list |
-| **Cek Tipe** | `what_is(x)` | Mengembalikan string tipe (`"whole"`, `"drift"`, `"words"`, dll.) |
-| **Waktu Sistem** | `clock()` | Mengambil timestamp detik saat ini |
+| **Import File** | `borrow "file.rem"` | Imports memory and declarations from another file |
+| **List/Map Length** | `count(memories)` | Returns the number of elements |
+| **Append to List** | `add(memories, item)` | Appends a new item to the list |
+| **Type Reflection** | `what_is(x)` | Returns the type name string (`"whole"`, `"drift"`, `"words"`, etc.) |
+| **System Clock** | `clock()` | Returns current UNIX timestamp in seconds |
 
 ---
 
 ## 🎭 Dual Programming Paradigms
 
-RemLang memberikan kebebasan mutlak dalam memilih paradigma pemrograman:
+RemLang gives you absolute freedom to choose your programming paradigm:
 
 ### 1. Procedure-Oriented Programming (POP)
-Cocok untuk script cepat, otomasi, dan algoritma pipeline:
+Ideal for concise scripts, automations, and linear algorithmic pipelines:
 
 ```rem
-zzz POP Example (examples/procedural.rem) 💤
-
 promise beloved = "Subaru-kun"
 
 dream calculate_score(scores) {
@@ -197,11 +194,9 @@ goodnight
 ```
 
 ### 2. Object-Oriented Programming (OOP)
-Mendukung enkapsulasi, state internal, konstruktor `init`, member methods, dan `this`:
+Fully supports encapsulation, state management, `init` constructors, member methods, and `this`:
 
 ```rem
-zzz OOP Example (examples/oop.rem) 💤
-
 class OniMaid {
     dream init(name, role, mana) {
         this.name = name
@@ -258,7 +253,6 @@ build.bat
 
 #### Cross-Compilation for All Platforms:
 ```bash
-# Build for all targets (macOS + Linux + Windows)
 ./build.sh all
 ```
 
@@ -272,51 +266,11 @@ Output binaries are generated in `bin/`:
 ## 🚀 CLI Usage
 
 ```bash
-# Run a RemLang program
 rem run examples/hello_world.rem
-
-# Direct execution shortcut
 rem examples/procedural.rem
 rem examples/oop.rem
-
-# Display Rem ASCII art
 rem rem
-
-# Check RemLang version
 rem version
-```
-
-### Rem ASCII Art Banner 💙
-```text
-                      .-===+%+*%=--.
-                  :=*%%*++*+*==*+****++*==:
-               .+%#%*=:-==-+-  :..+*+%## %+%*..
-             .+%#*=.   :=+*##%%%%#*+=:   %@=@###@@@+
-            ++##-   :*%@@@@@@@@@@@@%*: =  ::=#@@=%##@#@@=
-           %-@#   +%@@@@@@@@@@@@@@@@# :*  .- :#@*#+*#@@+=
-          %.%@  *@@@@@@@@@@@@@@@@@@.   @+:.=#@%@#@+*@@#**
-         *- @  %@@@@@@@@@@@@@@@@@#    .=*#%@##=*@@+@@@@@@
-        :* .: =@@@@@@@@@@@@@@@@@=     := -@+ :: *@@-@*@*@
-        %- :  #@@@@@@@@@@@@@@@@+      -=*..-@# * %*#@@@@@%
-        @= =: @@@@@@@@@@@@@@@@*       -=*=::  *#@   @##@=@@
-       .@=::= *@@@@@@@@@@@*-::        %***===.  %.  %@@@@@:
-       :@+- %= =@@@@@@@#=:            @@*@@@@@@@+--=@*=@@@
-       .@%::@@==%@@@@@-               #@%  @@#@-@#=:@+%=@@@
-        @#= %*@#*@:+#= :+%=..*+        --. -@=@%=+-@@#
-        =@*-:=#@@@-                   .@@@##*:+@@@.
-         =@@# -=%@-         .         . #=.*:#@#=@.
-          .%@@%+.++       \___/        += -@@@@-.@
-             .=@@#@*=.               +%+@%@*:=@.
-                 =@*@@%+:        :+#@@+@*.   :.
-                    .#@@.:--::--:.@@@:
-    ::.  :.         .%=-=:.    .:=-=*          .:  .::
-   :* .:=**%=..    :-%=  + +..+ +  =%-:    ..=%**=:. *:
-   -=      .*@.-*+:.   = :: %% :: =   .:+*-.@*.      =-
-    #        +-:@@      .=#*%%*#=.      @@:-+        #
-    :%@+:--- == .#@   =%*==@@@@==*%=   @#. == ---:+@%:
-     -@. .-+=.#++ *@+ =@=*@@..@@*=@= +@* ++#.=+-. .@-
-     #%      =+*+*. %@***=**  **=***@% .*+*==      %#
-    -= %. .-:%*: +=.+= *=#=#**#=#=* =+.=+ :*%:-. .% =-
 ```
 
 ---
