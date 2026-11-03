@@ -1,0 +1,4 @@
+rem_wakes_up {
+    sleep_talk "Rem: 'Good morning! Starting from zero with RemLang!' 💙"
+}
+goodnight

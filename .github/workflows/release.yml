@@ -1,0 +1,46 @@
+name: Release RemLang
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Zig Compiler
+        uses: mlugg/setup-zig@v1
+        with:
+          version: 0.13.0
+
+      - name: Build All Targets
+        run: |
+          chmod +x build.sh
+          ./build.sh all
+
+      - name: Prepare Release Assets
+        run: |
+          mkdir -p dist
+          cp bin/rem dist/rem-macos-arm64
+          cp bin/rem-linux-x86_64 dist/rem-linux-x86_64
+          cp bin/rem.exe dist/rem-windows-x86_64.exe
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/rem-macos-arm64
+            dist/rem-linux-x86_64
+            dist/rem-windows-x86_64.exe
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+

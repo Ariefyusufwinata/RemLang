@@ -1,0 +1,5 @@
+bin/
+.zig-cache/
+*.o
+*.obj
+*.pdb

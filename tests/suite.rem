@@ -1,0 +1,83 @@
+promise love = "Subaru"
+remember memories = [1, 2, 3]
+remember diary = { "hero": "Subaru", "maid": "Rem" }
+
+dream greet(who) {
+    wake_with "Rem remembers you, " + who + "-kun~"
+}
+
+rem_wakes_up {
+    sleep_talk greet(love)
+
+    remember whole age = 18
+    remember drift pi = 3.14
+    remember words quote = 'Starting from zero'
+    remember truth is_faithful = yes
+    remember forgotten lost = forgotten
+
+    sleep_talk "Age: " + age
+    sleep_talk "Pi: " + pi
+    sleep_talk "Quote: " + quote
+    sleep_talk "Faithful: " + is_faithful
+    sleep_talk "Lost: " + lost
+
+    sleep_talk "Count of memories: " + count(memories)
+    add(memories, 4)
+    sleep_talk "Count after add: " + count(memories)
+    sleep_talk "First memory: " + memories[0]
+    sleep_talk "Hero from diary: " + diary["hero"]
+
+    sleep_talk "what_is age: " + what_is(age)
+    sleep_talk "what_is pi: " + what_is(pi)
+    sleep_talk "what_is quote: " + what_is(quote)
+    sleep_talk "what_is memories: " + what_is(memories)
+    sleep_talk "what_is diary: " + what_is(diary)
+
+    remember hope = 10
+    maybe hope >= 15 {
+        sleep_talk "High hope!"
+    } or_maybe hope >= 5 {
+        sleep_talk "Rem is waking up!"
+    } snooze {
+        sleep_talk "zzz..."
+    }
+
+    remember sum = 0
+    again each m in memories {
+        sum = sum + m
+    }
+    sleep_talk "Sum of memories: " + sum
+
+    remember step = 0
+    again while step < 10 {
+        step = step + 1
+        maybe step == 2 {
+            turn_over
+        }
+        maybe step == 5 {
+            wake_up
+        }
+        sleep_talk "Step: " + step
+    }
+
+    again 3 times {
+        sleep_talk "Rem loves Subaru!"
+    }
+
+    remember temp_val = 999
+    devour temp_val
+
+    save_point {
+        sleep_talk "Attempting dangerous division..."
+        remember x = 10 / 0
+    } return_by_death {
+        sleep_talk "Return by Death activated! Let's try again, Subaru-kun..."
+    }
+
+    save_point {
+        die "Custom Oni Power Overload!"
+    } return_by_death {
+        sleep_talk "Caught die() with Return by Death!"
+    }
+}
+goodnight

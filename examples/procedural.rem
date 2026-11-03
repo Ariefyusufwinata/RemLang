@@ -1,0 +1,54 @@
+promise beloved = "Subaru-kun"
+promise max_retries = 3
+
+dream greet(who) {
+    wake_with "Rem remembers you, " + who + "! 💙"
+}
+
+dream calculate_score(scores) {
+    remember total = 0
+    again each s in scores {
+        total = total + s
+    }
+    wake_with total
+}
+
+dream risky_magic(mana) {
+    maybe mana <= 0 {
+        die "Out of mana! Rem cannot cast Al Huma!"
+    }
+    wake_with "Al Huma casted successfully with mana: " + mana
+}
+
+rem_wakes_up {
+    sleep_talk greet(beloved)
+
+    remember memories scores = [10, 20, 30]
+    add(scores, 40)
+    sleep_talk "Total scores evaluated: " + calculate_score(scores)
+    sleep_talk "Number of memory items: " + count(scores)
+
+    remember attempt = 0
+    again while attempt < max_retries {
+        attempt = attempt + 1
+        maybe attempt == 2 {
+            sleep_talk "Skipping trial 2..."
+            turn_over
+        }
+        sleep_talk "Executing trial #" + attempt
+    }
+
+    again 2 times {
+        sleep_talk "Rem will always be by Subaru's side."
+    }
+
+    save_point {
+        sleep_talk "Attempting risky Oni magic..."
+        sleep_talk risky_magic(0)
+    } return_by_death {
+        sleep_talk "Return by Death caught the catastrophe! Resetting timeline..."
+    }
+
+    sleep_talk "Procedural execution completed safely."
+}
+goodnight

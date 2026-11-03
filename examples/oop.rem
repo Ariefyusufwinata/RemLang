@@ -1,0 +1,46 @@
+class OniMaid {
+    dream init(name, role, mana) {
+        this.name = name
+        this.role = role
+        this.mana = mana
+        this.horn_active = no
+    }
+
+    dream activate_horn() {
+        this.horn_active = yes
+        this.mana = this.mana + 50
+        sleep_talk this.name + " sprouted her glowing Oni horn! Mana surged to " + this.mana + "!"
+    }
+
+    dream cast_ice_magic(spell, cost) {
+        maybe this.mana < cost {
+            die this.name + " doesn't have enough mana for " + spell + "!"
+        }
+        this.mana = this.mana - cost
+        sleep_talk this.name + " cast [" + spell + "]! Remaining mana: " + this.mana
+    }
+
+    dream status() {
+        sleep_talk "Maid: " + this.name + " | Role: " + this.role + " | Horn Active: " + this.horn_active
+    }
+}
+
+rem_wakes_up {
+    sleep_talk "=== Roswaal Mansion Maid Initiation ==="
+    
+    remember rem = new OniMaid("Rem", "Head Maid & Guardian", 100)
+    rem.status()
+
+    rem.activate_horn()
+    rem.cast_ice_magic("Al Huma", 30)
+    rem.cast_ice_magic("El Huma", 20)
+
+    save_point {
+        rem.cast_ice_magic("Ultimate Zero Frost", 200)
+    } return_by_death {
+        sleep_talk "Rem exhausted her mana! Return by Death prevented collapse!"
+    }
+
+    sleep_talk "=== OOP Maid Routine Completed ==="
+}
+goodnight
