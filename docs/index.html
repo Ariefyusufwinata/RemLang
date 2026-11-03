@@ -134,6 +134,27 @@
       text-align: center;
     }
 
+    .rem-avatar-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    .rem-avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 35px var(--primary-glow);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
     .badge-v {
       display: inline-block;
       padding: 0.3rem 0.8rem;
@@ -539,6 +560,9 @@
   </nav>
 
   <header class="hero">
+    <div class="rem-avatar-wrapper">
+      <img class="rem-avatar" src="https://media1.tenor.com/m/fKSubI-wAA4AAAAC/rem-re-zero.gif" alt="Rem" referrerpolicy="no-referrer">
+    </div>
     <div>
       <span class="badge-v">RemLang v0.1 Specification</span>
     </div>
