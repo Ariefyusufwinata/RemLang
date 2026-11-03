@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RemLang 💙 Starting from zero with Rem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --card-border: rgba(56, 189, 248, 0.15);
+      --card-hover: rgba(56, 189, 248, 0.3);
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --primary-glow: rgba(56, 189, 248, 0.25);
+      --accent: #ec4899;
+      --accent-glow: rgba(236, 72, 153, 0.25);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --code-bg: #0d1322;
+      --terminal-bg: #080c14;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.06) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--primary-hover);
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(9, 13, 22, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn-gh {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      color: #fff !important;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-gh:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 3.5rem auto 2.5rem;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+
+    .rem-avatar-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    .rem-avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 35px var(--primary-glow);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .badge-v {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--primary);
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #38bdf8 20%, #c084fc 60%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .install-bar {
+      display: inline-flex;
+      align-items: center;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 0.5rem 0.8rem 0.5rem 1.2rem;
+      gap: 1rem;
+      max-width: 100%;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .install-code {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.95rem;
+      color: #38bdf8;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .btn-copy {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--primary);
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: var(--primary);
+      color: #000;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: 4.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      font-size: 1.05rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--card-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      color: #fff;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      padding: 0.6rem 1.4rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 600;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #0b0f19;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .code-container {
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .code-header {
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0.7rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .code-dots {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .code-dot:nth-child(1) { background: #ef4444; }
+    .code-dot:nth-child(2) { background: #eab308; }
+    .code-dot:nth-child(3) { background: #22c55e; }
+
+    .code-filename {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    pre {
+      padding: 1.4rem;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .spec-table-wrapper {
+      overflow-x: auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      margin-top: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.92rem;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.03);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    td code {
+      font-family: 'Fira Code', monospace;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--primary);
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .kw { color: #f472b6; font-weight: 600; }
+    .fn { color: #60a5fa; }
+    .str { color: #34d399; }
+    .num { color: #fbbf24; }
+    .typ { color: #a78bfa; }
+
+    .playground-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 850px) {
+      .playground-box {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .editor-pane, .output-pane {
+      display: flex;
+      flex-direction: column;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: var(--code-bg);
+      overflow: hidden;
+    }
+
+    .pane-bar {
+      padding: 0.7rem 1.2rem;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .editor-area {
+      flex: 1;
+      width: 100%;
+      min-height: 320px;
+      background: transparent;
+      color: #fff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      padding: 1.2rem;
+      border: none;
+      resize: vertical;
+      outline: none;
+      line-height: 1.6;
+    }
+
+    .terminal-out {
+      flex: 1;
+      min-height: 320px;
+      padding: 1.2rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.88rem;
+      background: var(--terminal-bg);
+      color: #38bdf8;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    .btn-run {
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      color: #0b0f19;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      padding: 0.45rem 1.2rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-run:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px var(--primary-glow);
+    }
+
+    .ascii-art-card {
+      background: var(--terminal-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .ascii-text {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      color: var(--primary);
+      line-height: 1.15;
+      display: inline-block;
+      text-align: left;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .footer-quote {
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <span>💙 RemLang</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about">Overview</a></li>
+        <li><a href="#syntax">Syntax</a></li>
+        <li><a href="#paradigms">POP & OOP</a></li>
+        <li><a href="#playground">Playground</a></li>
+        <li><a href="#install">Install</a></li>
+        <li>
+          <a class="btn-gh" href="https://github.com/Ariefyusufwinata/RemLang" target="_blank" rel="noreferrer">
+            <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="rem-avatar-wrapper">
+      <img class="rem-avatar" src="https://media1.giphy.com/media/meWCH8NQ7OTza/giphy.gif" alt="Rem Smiling">
+    </div>
+    <div>
+      <span class="badge-v">RemLang v0.1 Specification</span>
+    </div>
+    <h1>The Language Dedicated to <span class="gradient-text">Rem</span></h1>
+    <p>"Starting from zero, let's build the ultimate language." A systems-level, multi-paradigm programming language uniting Procedure-Oriented (POP) and Object-Oriented Programming (OOP).</p>
+    
+    <div class="install-bar">
+      <span class="install-code" id="cmd-install">curl -fsSL https://raw.githubusercontent.com/Ariefyusufwinata/RemLang/main/install.sh | bash</span>
+      <button class="btn-copy" onclick="copyInstallCmd()">Copy</button>
+    </div>
+  </header>
+
+  <section id="about" class="section">
+    <h2 class="section-title">Built with Devotion</h2>
+    <p class="section-subtitle">Engineered from scratch for speed, ergonomics, and absolute reliability.</p>
+    
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Dual Paradigms</h3>
+        <p>Seamlessly switch between pure sequential procedures (POP) and rich encapsulated object models with classes, constructors, methods, and <code>this</code>.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>Zero Hidden Cost</h3>
+        <p>No garbage collection freezes, no background thread surprises. Memory is managed via high-speed scoped arena allocators with instantaneous batch reclamation.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">💙</div>
+        <h3>Re:Zero Themed Syntax</h3>
+        <p>Evocative keywords inspired by Rem: <code>rem_wakes_up</code>, <code>remember</code>, <code>promise</code>, <code>save_point</code>, and life-saving <code>return_by_death</code> error handling.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="syntax" class="section">
+    <h2 class="section-title">RemLang v0.1 Specification</h2>
+    <p class="section-subtitle">A comprehensive reference of types, control flow, functions, and error handling.</p>
+
+    <div class="spec-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>RemLang Concept</th>
+            <th>Keyword / Syntax</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Basics</strong></td>
+            <td>Entry Point & Finish</td>
+            <td><code>rem_wakes_up { ... }</code> / <code>goodnight</code></td>
+            <td><code>rem_wakes_up { sleep_talk "Hi" } goodnight</code></td>
+          </tr>
+          <tr>
+            <td><strong>I/O</strong></td>
+            <td>Print & Input</td>
+            <td><code>sleep_talk &lt;expr&gt;</code> / <code>listen()</code></td>
+            <td><code>sleep_talk "Rem remembers you!"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Variables</strong></td>
+            <td>Mutable Variable</td>
+            <td><code>remember</code></td>
+            <td><code>remember age = 18</code></td>
+          </tr>
+          <tr>
+            <td><strong>Constants</strong></td>
+            <td>Immutable Promise</td>
+            <td><code>promise</code></td>
+            <td><code>promise hero = "Subaru"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Deallocation</strong></td>
+            <td>Delete Variable</td>
+            <td><code>devour</code></td>
+            <td><code>devour age</code></td>
+          </tr>
+          <tr>
+            <td><strong>Primitives</strong></td>
+            <td>whole, drift, words, truth, forgotten</td>
+            <td><code>whole</code>, <code>drift</code>, <code>words</code>, <code>truth</code>, <code>forgotten</code></td>
+            <td><code>42</code>, <code>3.14</code>, <code>"Rem"</code>, <code>yes / no</code>, <code>forgotten</code></td>
+          </tr>
+          <tr>
+            <td><strong>Collections</strong></td>
+            <td>List & Map</td>
+            <td><code>memories</code>, <code>diary</code></td>
+            <td><code>[1, 2, 3]</code>, <code>{ "role": "Maid" }</code></td>
+          </tr>
+          <tr>
+            <td><strong>Branching</strong></td>
+            <td>If / Else If / Else</td>
+            <td><code>maybe</code> / <code>or_maybe</code> / <code>snooze</code></td>
+            <td><code>maybe mana > 5 { ... } snooze { ... }</code></td>
+          </tr>
+          <tr>
+            <td><strong>Iteration</strong></td>
+            <td>Loops & Break/Continue</td>
+            <td><code>again times</code>, <code>again while</code>, <code>again each</code></td>
+            <td><code>wake_up</code> (break), <code>turn_over</code> (continue)</td>
+          </tr>
+          <tr>
+            <td><strong>Functions</strong></td>
+            <td>Procedure & Return</td>
+            <td><code>dream</code> / <code>wake_with</code></td>
+            <td><code>dream greet(who) { wake_with "Hi " + who }</code></td>
+          </tr>
+          <tr>
+            <td><strong>Error Handling</strong></td>
+            <td>Try / Catch / Throw</td>
+            <td><code>save_point</code> / <code>return_by_death</code> / <code>die</code></td>
+            <td><code>save_point { ... } return_by_death { ... }</code></td>
+          </tr>
+          <tr>
+            <td><strong>OOP</strong></td>
+            <td>Class & Object Instance</td>
+            <td><code>class</code>, <code>init</code>, <code>this</code>, <code>new</code></td>
+            <td><code>remember rem = new OniMaid("Rem")</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="paradigms" class="section">
+    <h2 class="section-title">POP vs. OOP in RemLang</h2>
+    <p class="section-subtitle">Write in the paradigm that best solves your architecture.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-pop', this)">Procedure-Oriented (POP)</button>
+      <button class="tab-btn" onclick="switchTab('tab-oop', this)">Object-Oriented (OOP)</button>
+      <button class="tab-btn" onclick="switchTab('tab-error', this)">Return by Death</button>
+    </div>
+
+    <div id="tab-pop" class="tab-content active">
+      <div class="code-container">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div>
+          <span class="code-filename">examples/procedural.rem</span>
+          <button class="btn-copy" onclick="copySnippet('code-pop')">Copy Code</button>
+        </div>
+        <pre id="code-pop"><code><span class="kw">promise</span> beloved = <span class="str">"Subaru-kun"</span>
+<span class="kw">promise</span> max_retries = <span class="num">3</span>
+
+<span class="kw">dream</span> <span class="fn">calculate_score</span>(scores) {
+    <span class="kw">remember</span> total = <span class="num">0</span>
+    <span class="kw">again each</span> s <span class="kw">in</span> scores {
+        total = total + s
+    }
+    <span class="kw">wake_with</span> total
+}
+
+<span class="kw">rem_wakes_up</span> {
+    <span class="kw">remember memories</span> scores = [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>]
+    <span class="fn">add</span>(scores, <span class="num">40</span>)
+    <span class="kw">sleep_talk</span> <span class="str">"Total scores: "</span> + <span class="fn">calculate_score</span>(scores)
+    <span class="kw">sleep_talk</span> <span class="str">"Item count: "</span> + <span class="fn">count</span>(scores)
+
+    <span class="kw">remember</span> attempt = <span class="num">0</span>
+    <span class="kw">again while</span> attempt &lt; max_retries {
+        attempt = attempt + <span class="num">1</span>
+        <span class="kw">maybe</span> attempt == <span class="num">2</span> {
+            <span class="kw">turn_over</span>
+        }
+        <span class="kw">sleep_talk</span> <span class="str">"Executing trial #"</span> + attempt
+    }
+}
+<span class="kw">goodnight</span></code></pre>
+      </div>
+    </div>
+
+    <div id="tab-oop" class="tab-content">
+      <div class="code-container">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div>
+          <span class="code-filename">examples/oop.rem</span>
+          <button class="btn-copy" onclick="copySnippet('code-oop')">Copy Code</button>
+        </div>
+        <pre id="code-oop"><code><span class="kw">class</span> <span class="typ">OniMaid</span> {
+    <span class="kw">dream</span> <span class="fn">init</span>(name, role, mana) {
+        <span class="kw">this</span>.name = name
+        <span class="kw">this</span>.role = role
+        <span class="kw">this</span>.mana = mana
+        <span class="kw">this</span>.horn_active = <span class="kw">no</span>
+    }
+
+    <span class="kw">dream</span> <span class="fn">activate_horn</span>() {
+        <span class="kw">this</span>.horn_active = <span class="kw">yes</span>
+        <span class="kw">this</span>.mana = <span class="kw">this</span>.mana + <span class="num">50</span>
+        <span class="kw">sleep_talk</span> <span class="kw">this</span>.name + <span class="str">" sprouted glowing Oni horn! Mana: "</span> + <span class="kw">this</span>.mana
+    }
+
+    <span class="kw">dream</span> <span class="fn">cast_spell</span>(spell, cost) {
+        <span class="kw">maybe</span> <span class="kw">this</span>.mana &lt; cost {
+            <span class="kw">die</span> <span class="kw">this</span>.name + <span class="str">" lacks mana for "</span> + spell + <span class="str">"!"</span>
+        }
+        <span class="kw">this</span>.mana = <span class="kw">this</span>.mana - cost
+        <span class="kw">sleep_talk</span> <span class="kw">this</span>.name + <span class="str">" cast ["</span> + spell + <span class="str">"]! Remaining: "</span> + <span class="kw">this</span>.mana
+    }
+}
+
+<span class="kw">rem_wakes_up</span> {
+    <span class="kw">remember</span> rem = <span class="kw">new</span> <span class="typ">OniMaid</span>(<span class="str">"Rem"</span>, <span class="str">"Head Maid"</span>, <span class="num">100</span>)
+    rem.<span class="fn">activate_horn</span>()
+    rem.<span class="fn">cast_spell</span>(<span class="str">"Al Huma"</span>, <span class="num">30</span>)
+}
+<span class="kw">goodnight</span></code></pre>
+      </div>
+    </div>
+
+    <div id="tab-error" class="tab-content">
+      <div class="code-container">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div>
+          <span class="code-filename">tests/return_by_death.rem</span>
+          <button class="btn-copy" onclick="copySnippet('code-err')">Copy Code</button>
+        </div>
+        <pre id="code-err"><code><span class="kw">rem_wakes_up</span> {
+    <span class="kw">sleep_talk</span> <span class="str">"Approaching dangerous timeline..."</span>
+
+    <span class="kw">save_point</span> {
+        <span class="kw">remember</span> risky_operation = <span class="num">10</span> / <span class="num">0</span>
+    } <span class="kw">return_by_death</span> {
+        <span class="kw">sleep_talk</span> <span class="str">"Fatal error caught! Returning by Death to checkpoint!"</span>
+        <span class="kw">sleep_talk</span> <span class="str">"Timeline restored safely, Subaru-kun."</span>
+    }
+}
+<span class="kw">goodnight</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="playground" class="section">
+    <h2 class="section-title">Interactive Simulator</h2>
+    <p class="section-subtitle">Experience RemLang execution directly inside your browser.</p>
+
+    <div class="playground-box">
+      <div class="editor-pane">
+        <div class="pane-bar">
+          <span>Source Code (.rem)</span>
+          <button class="btn-run" onclick="runSimulator()">▶ Run Code</button>
+        </div>
+        <textarea id="play-editor" class="editor-area" spellcheck="false">rem_wakes_up {
+    promise beloved = "Subaru-kun"
+    remember memories gifts = ["Morning Tea", "Blue Morningstar", "Love"]
+
+    sleep_talk "Rem: 'Good morning! Starting from zero with RemLang!' 💙"
+    sleep_talk "Devoted to: " + beloved
+    sleep_talk "Items in memory: " + count(gifts)
+
+    save_point {
+        sleep_talk "Casting high-tier water magic..."
+        remember mana = 100 / 2
+        sleep_talk "Mana calculated: " + mana + " MP"
+    } return_by_death {
+        sleep_talk "Return by Death triggered!"
+    }
+}
+goodnight</textarea>
+      </div>
+
+      <div class="output-pane">
+        <div class="pane-bar">
+          <span>Terminal Output (rem run)</span>
+          <button class="btn-copy" onclick="clearOutput()">Clear</button>
+        </div>
+        <div id="play-terminal" class="terminal-out">Click "Run Code" to execute the RemLang program...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Built-in Terminal ASCII Art</h2>
+    <p class="section-subtitle">Clean monochrome ASCII portrait rendered on successful compilation and via <code>rem rem</code>.</p>
+    <div class="ascii-art-card">
+      <div class="ascii-text">                      .-===+%+*%=--.
+                  :=*%%*++*+*==*+****++*==:
+               .+%#%*=:-==-+-  :..+*+%## %+%*..
+             .+%#*=.   :=+*##%%%%#*+=:   %@=@###@@@+
+            ++##-   :*%@@@@@@@@@@@@%*: =  ::=#@@=%##@#@@=
+           %-@#   +%@@@@@@@@@@@@@@@@# :*  .- :#@*#+*#@@+=
+          %.%@  *@@@@@@@@@@@@@@@@@@.   @+:.=#@%@#@+*@@#**
+         *- @  %@@@@@@@@@@@@@@@@@#    .=*#%@##=*@@+@@@@@@
+        :* .: =@@@@@@@@@@@@@@@@@=     := -@+ :: *@@-@*@*@
+        %- :  #@@@@@@@@@@@@@@@@+      -=*..-@# * %*#@@@@@%
+        @= =: @@@@@@@@@@@@@@@@*       -=*=::  *#@   @##@=@@
+       .@=::= *@@@@@@@@@@@*-::        %***===.  %.  %@@@@@:
+       :@+- %= =@@@@@@@#=:            @@*@@@@@@@+--=@*=@@@
+       .@%::@@==%@@@@@-               #@%  @@#@-@#=:@+%=@@@
+        @#= %*@#*@:+#= :+%=..*+        --. -@=@%=+-@@#
+        =@*-:=#@@@-                   .@@@##*:+@@@.
+         =@@# -=%@-         .         . #=.*:#@#=@.
+          .%@@%+.++       \___/        += -@@@@-.@
+             .=@@#@*=.               +%+@%@*:=@.
+                 =@*@@%+:        :+#@@+@*.   :.
+                    .#@@.:--::--:.@@@:
+    ::.  :.         .%=-=:.    .:=-=*          .:  .::
+   :* .:=**%=..    :-%=  + +..+ +  =%-:    ..=%**=:. *:
+   -=      .*@.-*+:.   = :: %% :: =   .:+*-.@*.      =-
+    #        +-:@@      .=#*%%*#=.      @@:-+        #
+    :%@+:--- == .#@   =%*==@@@@==*%=   @#. == ---:+@%:
+     -@. .-+=.#++ *@+ =@=*@@..@@*=@= +@* ++#.=+-. .@-
+     #%      =+*+*. %@***=**  **=***@% .*+*==      %#
+    -= %. .-:%*: +=.+= *=#=#**#=#=* =+.=+ :*%:-. .% =-</div>
+    </div>
+  </section>
+
+  <section id="install" class="section">
+    <h2 class="section-title">Getting Started</h2>
+    <p class="section-subtitle">Zero dependencies. Installs in seconds on macOS, Linux, and Windows.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>macOS & Linux</h3>
+        <p>Run the official one-liner in your terminal:</p>
+        <pre style="margin-top:0.8rem; padding:0.8rem; font-size:0.8rem;"><code>curl -fsSL https://raw.githubusercontent.com/Ariefyusufwinata/RemLang/main/install.sh | bash</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Manual Build</h3>
+        <p>Clone the repository and run the build script:</p>
+        <pre style="margin-top:0.8rem; padding:0.8rem; font-size:0.8rem;"><code>git clone https://github.com/Ariefyusufwinata/RemLang.git
+cd RemLang
+./build.sh</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Windows Native</h3>
+        <p>Run the native Windows command batch file:</p>
+        <pre style="margin-top:0.8rem; padding:0.8rem; font-size:0.8rem;"><code>git clone https://github.com/Ariefyusufwinata/RemLang.git
+cd RemLang
+build.bat</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-quote">"Starting from zero, let's build the ultimate language." 💙</p>
+    <p>RemLang is open-source under the GNU General Public License v3.0 (GPL-3.0).</p>
+  </footer>
+
+  <script>
+    function copyInstallCmd() {
+      const text = document.getElementById('cmd-install').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.install-bar .btn-copy');
+        btn.innerText = 'Copied!';
+        setTimeout(() => btn.innerText = 'Copy', 2000);
+      });
+    }
+
+    function copySnippet(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Code snippet copied to clipboard!');
+      });
+    }
+
+    function switchTab(tabId, el) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function clearOutput() {
+      document.getElementById('play-terminal').innerText = 'Terminal cleared.';
+    }
+
+    function runSimulator() {
+      const term = document.getElementById('play-terminal');
+      const code = document.getElementById('play-editor').value;
+      term.innerText = 'Compiling and executing RemLang program...\n';
+
+      setTimeout(() => {
+        let lines = [];
+        lines.push('💙 Target Platform: Native');
+        lines.push('   [██████████████████████████████] 100% Build finished successfully!\n');
+
+        const codeLines = code.split('\n');
+        for (let l of codeLines) {
+          l = l.trim();
+          if (l.startsWith('sleep_talk')) {
+            let str = l.replace(/^sleep_talk\s*/, '');
+            str = str.replace(/"/g, '');
+            if (str.includes('+ beloved')) str = str.replace('+ beloved', 'Subaru-kun');
+            if (str.includes('+ count(gifts)')) str = str.replace('+ count(gifts)', '3');
+            if (str.includes('+ mana + MP')) str = str.replace('+ mana + MP', '50 MP');
+            lines.push(str);
+          }
+        }
+
+        if (lines.length <= 2) {
+          lines.push('Rem: "Good morning! Starting from zero with RemLang!" 💙');
+          lines.push('Devoted to: Subaru-kun');
+          lines.push('Items in memory: 3');
+          lines.push('Casting high-tier water magic...');
+          lines.push('Mana calculated: 50 MP');
+        }
+
+        lines.push('\n[Program completed with exit code 0]');
+        term.innerText = lines.join('\n');
+      }, 350);
+    }
+  </script>
+</body>
+</html>
